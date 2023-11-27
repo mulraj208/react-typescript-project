@@ -1,0 +1,19 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.category-button {
+    border: 1px solid;
+    padding: 20px 15px;
+    margin: 16px;
+    min-width: 200px;
+    text-transform: capitalize;
+}
+
+.category-button.active {
+    border: 1px solid blue;
+}
+
