@@ -28,6 +28,7 @@ function App() {
 
                 const result = await response.json();
                 setData(result);
+                setError(null);
             } catch (error) {
                 setError(error as unknown as Error);
             } finally {
