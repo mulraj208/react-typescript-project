@@ -1,50 +1,23 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {useQuery} from "react-query";
 import './App.css'
 
 const API_ENDPOINT = 'http://127.0.0.1:8000'
 const categories = ['all', 'books', 'movies']
 
-type Error = { message?: string } | null
-
 function App() {
     const [activeCategory, setActiveCategory] = useState('all')
-    const [data, setData] = useState([])
-    const [error, setError] = useState<Error>()
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const abortController = new AbortController();
-        const signal = abortController.signal;
-
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-
-                const response = await fetch(`${API_ENDPOINT}/category/${activeCategory}`, {signal});
-
-                if (!response.ok) {
+    const {isLoading, data, error} = useQuery({
+        queryKey: ['bookmarks', activeCategory],
+        queryFn: () =>
+            fetch(`${API_ENDPOINT}/category/${activeCategory}`).then((res) => {
+                if (!res.ok) {
                     throw new Error('Failed to fetch')
                 }
-
-                const result = await response.json();
-                setData(result);
-                setError(null);
-            } catch (error) {
-                setError(error as unknown as Error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-
-        return () => {
-            // This will abort the fetch when the component unmounts or when activeCategory changes.
-            abortController.abort();
-        };
-    }, [activeCategory]);
-
-    console.log(data, error)
+                return res.json()
+            })
+    })
 
     return (
         <div>
@@ -58,7 +31,7 @@ function App() {
             }
 
             <p>
-                {loading ? 'loading...' : error?.message ? error.message : data}
+                {isLoading ? 'loading...' : error?.message ? error.message : data}
             </p>
         </div>
     )
