@@ -10,6 +10,7 @@ function App() {
     const [activeCategory, setActiveCategory] = useState('all')
     const [data, setData] = useState([])
     const [error, setError] = useState<Error>()
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -17,6 +18,8 @@ function App() {
 
         const fetchData = async () => {
             try {
+                setLoading(true);
+
                 const response = await fetch(`${API_ENDPOINT}/category/${activeCategory}`, {signal});
                 const result = await response.json();
 
@@ -24,6 +27,8 @@ function App() {
                 setError(null);
             } catch (error) {
                 setError(error as unknown as Error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -47,7 +52,7 @@ function App() {
             }
 
             <p>
-                {error?.message ? error.message : data}
+                {loading ? 'loading...' : error?.message ? error.message : data}
             </p>
         </div>
     )
