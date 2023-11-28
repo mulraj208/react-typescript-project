@@ -1,6 +1,8 @@
 import {useState} from "react";
 import {useQuery} from "react-query";
 import './App.css'
+import {Link} from "react-router-dom";
+import Nav from "./components/Nav";
 
 const API_ENDPOINT = 'http://127.0.0.1:8000'
 const categories = ['all', 'books', 'movies']
@@ -9,7 +11,7 @@ function App() {
     const [activeCategory, setActiveCategory] = useState('all')
 
     const {isLoading, data, error} = useQuery({
-        queryKey: ['bookmarks', activeCategory],
+        queryKey: ['category', activeCategory],
         queryFn: () =>
             fetch(`${API_ENDPOINT}/category/${activeCategory}`).then((res) => {
                 if (!res.ok) {
@@ -21,6 +23,8 @@ function App() {
 
     return (
         <div>
+            <Nav/>
+
             {categories.map(category =>
                 <button
                     key={category}
