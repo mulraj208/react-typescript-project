@@ -21,10 +21,13 @@ function App() {
                 setLoading(true);
 
                 const response = await fetch(`${API_ENDPOINT}/category/${activeCategory}`, {signal});
-                const result = await response.json();
 
+                if (!response.ok) {
+                    throw new Error('Failed to fetch')
+                }
+
+                const result = await response.json();
                 setData(result);
-                setError(null);
             } catch (error) {
                 setError(error as unknown as Error);
             } finally {
@@ -39,6 +42,8 @@ function App() {
             abortController.abort();
         };
     }, [activeCategory]);
+
+    console.log(data, error)
 
     return (
         <div>
