@@ -10,10 +10,24 @@ function App() {
     const [error, setError] = useState<{ message?: string }>()
 
     useEffect(() => {
+        let ignore = false
+
         fetch(`${API_ENDPOINT}/category/${activeCategory}`)
             .then(res => res.json())
-            .then(data => setData(data))
-            .catch(error => setError(error))
+            .then(data => {
+                if (!ignore) {
+                    setData(data)
+                }
+            })
+            .catch(error => {
+                if (!ignore) {
+                    setError(error)
+                }
+            })
+
+        return () => {
+            ignore = true
+        }
     }, [activeCategory])
 
     return (
