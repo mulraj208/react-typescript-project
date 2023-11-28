@@ -7,13 +7,13 @@ const categories = ['all', 'books', 'movies']
 function App() {
     const [activeCategory, setActiveCategory] = useState('all')
     const [data, setData] = useState([])
-    const [error, setError] = useState()
+    const [error, setError] = useState<{ message?: string }>()
 
     useEffect(() => {
         fetch(`${API_ENDPOINT}/category/${activeCategory}`)
             .then(res => res.json())
-            .then(d => setData(d))
-            .catch(e => setError(e))
+            .then(data => setData(data))
+            .catch(error => setError(error))
     }, [activeCategory])
 
     return (
@@ -27,7 +27,9 @@ function App() {
                 </button>)
             }
 
-            <p>{data.message}</p>
+            <p>
+                {error?.message ? error.message : data}
+            </p>
         </div>
     )
 }
