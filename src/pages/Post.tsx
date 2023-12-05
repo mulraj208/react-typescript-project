@@ -27,7 +27,8 @@ function Post() {
             <h2>
                 <Link to={`/post/${post.id}`}>{post.title}</Link>
             </h2>
-            <p>{post.body}</p>
+
+            <div dangerouslySetInnerHTML={{__html: post.body}}/>
         </div>
     )
 }

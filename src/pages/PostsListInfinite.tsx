@@ -41,7 +41,7 @@ function PostsListInfinite() {
                                 <h2>
                                     <Link to={`/post/${post.id}`}>{post.title}</Link>
                                 </h2>
-                                <p>{post.body}</p>
+                                <p>{post.excerpt}</p>
                             </div>
                         ))}
                     </div>
