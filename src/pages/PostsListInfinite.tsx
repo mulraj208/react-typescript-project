@@ -1,7 +1,7 @@
 import {useInfiniteQuery} from "react-query";
-import {Link} from "react-router-dom";
 import {API_ENDPOINT} from "../constants";
 import Nav from "../components/Nav";
+import PostCard from "./PostCard";
 
 function PostsListInfinite() {
     const {
@@ -37,12 +37,10 @@ function PostsListInfinite() {
                 return (
                     <div key={`posts-page-${index}`}>
                         {posts.data.map((post) => (
-                            <div key={post.id} className="post-wrapper">
-                                <h2>
-                                    <Link to={`/post/${post.id}`}>{post.title}</Link>
-                                </h2>
-                                <p>{post.excerpt}</p>
-                            </div>
+                            <PostCard
+                                key={post.id}
+                                post={post}
+                            />
                         ))}
                     </div>
                 )

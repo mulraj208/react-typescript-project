@@ -1,8 +1,8 @@
 import {useQuery} from "react-query";
-import {Link} from "react-router-dom";
 import {API_ENDPOINT} from "../constants";
 import {useState} from "react";
 import Nav from "../components/Nav";
+import PostCard from "./PostCard";
 
 function PostsPaginated() {
     const [page, setPage] = useState(1)
@@ -26,12 +26,10 @@ function PostsPaginated() {
             <Nav/>
 
             {posts.data.map((post) => (
-                <div key={post.id} className="post-wrapper">
-                    <h2>
-                        <Link to={`/post/${post.id}`}>{post.title}</Link>
-                    </h2>
-                    <p>{post.excerpt}</p>
-                </div>
+                <PostCard
+                    key={post.id}
+                    post={post}
+                />
             ))}
 
             {posts.prev_page_url && (
