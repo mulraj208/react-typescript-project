@@ -26,7 +26,7 @@ function PostCard(props) {
     }
 
     return (
-        <div className="post-wrapper" onMouseEnter={onPostCardHover}>
+        <div className="post-wrapper" onMouseEnter={onPostCardHover} onTouchStart={onPostCardHover}>
             <h2>
                 <Link to={`/post/${post.id}`}>{post.title}</Link>
             </h2>

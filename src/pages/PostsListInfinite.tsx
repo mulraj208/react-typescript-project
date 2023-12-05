@@ -1,7 +1,7 @@
 import {useInfiniteQuery} from "react-query";
 import {API_ENDPOINT} from "../constants";
 import Nav from "../components/Nav";
-import PostCard from "./PostCard";
+import PostCard from "../components/PostCard";
 
 function PostsListInfinite() {
     const {

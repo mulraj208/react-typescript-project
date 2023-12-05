@@ -1,6 +1,6 @@
 import {useQuery} from "react-query";
 import Nav from "../components/Nav";
-import PostCard from "./PostCard";
+import PostCard from "../components/PostCard";
 
 const API_ENDPOINT = 'http://127.0.0.1:8000'
 

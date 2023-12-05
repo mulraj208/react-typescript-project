@@ -8,6 +8,7 @@ import PostsPaginated from "./pages/PostsPaginated";
 import PostsListInfinite from "./pages/PostsListInfinite";
 import Posts from "./pages/Posts";
 import Post from "./pages/Post";
+import CreatePost from "./pages/CreatePost";
 import './index.css'
 
 const queryClient = new QueryClient({
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
     {
         path: "/post/:postId",
         element: <Post/>,
+    },
+    {
+        path: "/create-new-post",
+        element: <CreatePost/>,
     },
 ]);
 
