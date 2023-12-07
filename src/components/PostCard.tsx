@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {useQueryClient} from "react-query";
+import {useQueryClient} from "@tanstack/react-query";
 
 const API_ENDPOINT = 'http://127.0.0.1:8000'
 

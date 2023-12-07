@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import './App.css'
 import {Link} from "react-router-dom";
 import Nav from "./components/Nav";

@@ -1,4 +1,4 @@
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import {API_ENDPOINT} from "../constants";
 import {useState} from "react";
 import Nav from "../components/Nav";

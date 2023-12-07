@@ -1,4 +1,4 @@
-import {useInfiniteQuery} from "react-query";
+import {useInfiniteQuery} from "@tanstack/react-query";
 import {API_ENDPOINT} from "../constants";
 import Nav from "../components/Nav";
 import PostCard from "../components/PostCard";

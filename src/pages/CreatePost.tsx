@@ -1,8 +1,7 @@
-import {useMutation, useQueryClient} from "react-query";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Button, VStack, Input, Textarea, useToast} from "@chakra-ui/react";
 import Nav from "../components/Nav";
-
-const API_ENDPOINT = 'http://127.0.0.1:8000'
+import {API_ENDPOINT} from "../constants.ts";
 
 function CreatePost() {
     const toast = useToast()
@@ -24,7 +23,7 @@ function CreatePost() {
             })
         },
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['posts'] })
+            queryClient.invalidateQueries({queryKey: ['posts']})
         }
     })
 

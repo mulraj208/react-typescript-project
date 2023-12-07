@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {QueryClient, QueryClientProvider} from "react-query";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ChakraProvider} from '@chakra-ui/react'
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import App from './App.tsx'
@@ -9,6 +9,7 @@ import PostsListInfinite from "./pages/PostsListInfinite";
 import Posts from "./pages/Posts";
 import Post from "./pages/Post";
 import CreatePost from "./pages/CreatePost";
+import Todos from "./pages/Todos";
 import './index.css'
 
 const queryClient = new QueryClient({
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
     {
         path: "/create-new-post",
         element: <CreatePost/>,
+    },
+    {
+        path: "/todos",
+        element: <Todos/>,
     },
 ]);
 

@@ -1,4 +1,4 @@
-import {useQuery} from "react-query";
+import {useQuery} from "@tanstack/react-query";
 import Nav from "../components/Nav";
 import PostCard from "../components/PostCard";
 
