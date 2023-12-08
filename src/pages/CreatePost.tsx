@@ -23,7 +23,7 @@ function CreatePost() {
             })
         },
         onSuccess: () => {
-            // queryClient.invalidateQueries({queryKey: ['posts']})
+            queryClient.invalidateQueries({queryKey: ['posts']})
         }
     })
 
