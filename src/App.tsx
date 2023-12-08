@@ -4,31 +4,36 @@ import './App.css'
 const API_ENDPOINT = 'http://127.0.0.1:8000'
 const categories = ['all', 'books', 'movies']
 
+type Error = { message?: string } | null
+
 function App() {
     const [activeCategory, setActiveCategory] = useState('all')
     const [data, setData] = useState([])
-    const [error, setError] = useState<{ message?: string }>()
+    const [error, setError] = useState<Error>()
 
     useEffect(() => {
-        let ignore = false
+        const abortController = new AbortController();
+        const signal = abortController.signal;
 
-        fetch(`${API_ENDPOINT}/category/${activeCategory}`)
-            .then(res => res.json())
-            .then(data => {
-                if (!ignore) {
-                    setData(data)
-                }
-            })
-            .catch(error => {
-                if (!ignore) {
-                    setError(error)
-                }
-            })
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${API_ENDPOINT}/category/${activeCategory}`, {signal});
+                const result = await response.json();
+
+                setData(result);
+                setError(null);
+            } catch (error) {
+                setError(error as unknown as Error);
+            }
+        };
+
+        fetchData();
 
         return () => {
-            ignore = true
-        }
-    }, [activeCategory])
+            // This will abort the fetch when the component unmounts or when activeCategory changes.
+            abortController.abort();
+        };
+    }, [activeCategory]);
 
     return (
         <div>
