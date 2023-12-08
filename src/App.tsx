@@ -1,8 +1,9 @@
 import {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import './App.css'
+import Nav from "./components/Nav";
+import {API_ENDPOINT} from "./constants.ts";
 
-const API_ENDPOINT = 'http://127.0.0.1:8000'
 const categories = ['all', 'books', 'movies']
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
 
     return (
         <div>
+            <Nav/>
+
             {categories.map(category =>
                 <button
                     key={category}

@@ -67,3 +67,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.post-wrapper {
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.post-wrapper h2 {
+  margin-bottom: 5px;
+  color: black;
+  font-size: 26px;
+}

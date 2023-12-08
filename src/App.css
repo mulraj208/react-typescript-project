@@ -5,6 +5,16 @@
     text-align: center;
 }
 
+.nav-links-wrapper {
+    margin: 15px 0;
+}
+
+.nav-links-wrapper a {
+    margin: 15px 0;
+    padding: 15px;
+    display: inline-flex;
+}
+
 .category-button {
     border: 1px solid;
     padding: 20px 15px;
