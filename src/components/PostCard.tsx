@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import {useQueryClient} from "@tanstack/react-query";
-
-const API_ENDPOINT = 'http://127.0.0.1:8000'
+import {API_ENDPOINT} from "../constants.ts";
 
 function PostCard(props) {
     const {post} = props
@@ -26,7 +25,7 @@ function PostCard(props) {
     }
 
     return (
-        <div className="post-wrapper" onMouseEnter={onPostCardHover}>
+        <div className="post-wrapper" onMouseEnter={onPostCardHover} onTouchStart={onPostCardHover}>
             <h2>
                 <Link to={`/post/${post.id}`}>{post.title}</Link>
             </h2>

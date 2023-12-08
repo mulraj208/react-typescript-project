@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import Nav from "../components/Nav";
-import PostCard from "./PostCard";
+import PostCard from "../components/PostCard";
 import {API_ENDPOINT} from "../constants.ts";
 
 function Posts() {

@@ -2,7 +2,7 @@ import {useQuery} from "@tanstack/react-query";
 import {API_ENDPOINT} from "../constants";
 import {useState} from "react";
 import Nav from "../components/Nav";
-import PostCard from "./PostCard";
+import PostCard from "../components/PostCard";
 import {Button} from "@chakra-ui/react";
 
 function PostsPaginated() {
