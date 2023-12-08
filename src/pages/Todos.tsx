@@ -1,7 +1,7 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import Nav from "../components/Nav";
 import {ArrowForwardIcon} from '@chakra-ui/icons'
-import {Box, Button, Flex, Input, Spinner, Text} from "@chakra-ui/react";
+import {Box, Button, Input, Text} from "@chakra-ui/react";
 import {useState} from "react";
 import {API_ENDPOINT} from "../constants.ts";
 
@@ -19,7 +19,7 @@ function Todos() {
             })
     });
 
-    const {isPending, variables, mutate, isError} = useMutation({
+    const {mutate} = useMutation({
         mutationFn: (text: string) => {
             return fetch(`${API_ENDPOINT}/todo`, {
                 method: 'POST',
@@ -35,8 +35,27 @@ function Todos() {
                 return res.json()
             })
         },
-        onSettled: async () => {
-            return await queryClient.invalidateQueries({queryKey: ['todos']})
+        onMutate: async (newTodo) => {
+            // Cancel any outgoing refetches
+            // (so they don't overwrite our optimistic update)
+            await queryClient.cancelQueries({queryKey: ['todos']})
+
+            // Snapshot the previous value
+            const previousTodos = queryClient.getQueryData(['todos'])
+
+            // Optimistically update to the new value
+            queryClient.setQueryData(['todos'], () => [...previousTodos, {id: Math.random().toString(), text: newTodo}])
+
+            // Return a context object with the snapshotted value
+            return {previousTodos}
+        },
+        // If the mutation fails,
+        // use the context returned from onMutate to roll back
+        onError: (err, newTodo, context) => {
+            queryClient.setQueryData(['todos'], context.previousTodos)
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries({queryKey: ['todos']})
         }
     })
 
@@ -74,24 +93,6 @@ function Todos() {
                         {text}
                     </Text>
                 ))}
-
-                {isPending && (
-                    <Flex align="center">
-                        <Text opacity={0.5} mr={3}>
-                            {variables}
-                        </Text>
-                        <Spinner/>
-                    </Flex>
-                )}
-
-                {isError && (
-                    <Flex align="center">
-                        <Text color="red" mr={3}>{variables}</Text>
-                        <Button onClick={() => mutate(variables)}>
-                            Retry
-                        </Button>
-                    </Flex>
-                )}
             </Box>
         </div>
     )
