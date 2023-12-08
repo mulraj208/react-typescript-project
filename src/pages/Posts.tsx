@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
-import {Link} from "react-router-dom";
 import Nav from "../components/Nav";
+import PostCard from "./PostCard";
 import {API_ENDPOINT} from "../constants.ts";
 
 function Posts() {
@@ -23,12 +23,10 @@ function Posts() {
             <Nav/>
 
             {posts.map((post) => (
-                <div key={post.id} className="post-wrapper">
-                    <h2>
-                        <Link to={`/post/${post.id}`}>{post.title}</Link>
-                    </h2>
-                    <p>{post.excerpt}</p>
-                </div>
+                <PostCard
+                    key={post.id}
+                    post={post}
+                />
             ))}
         </div>
     )

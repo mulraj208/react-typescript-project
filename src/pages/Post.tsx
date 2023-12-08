@@ -5,10 +5,11 @@ import {API_ENDPOINT} from "../constants.ts";
 
 function Post() {
     const params = useParams()
+    const postId = parseInt(params.postId, 10)
     const {isLoading, data: post, error} = useQuery({
-        queryKey: ['posts', params.postId],
+        queryKey: ['posts', postId],
         queryFn: () =>
-            fetch(`${API_ENDPOINT}/posts/${params.postId}`).then((res) => {
+            fetch(`${API_ENDPOINT}/posts/${postId}`).then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to fetch')
                 }

@@ -1,7 +1,7 @@
 import {useInfiniteQuery} from "@tanstack/react-query";
-import {Link} from "react-router-dom";
 import {API_ENDPOINT} from "../constants";
 import Nav from "../components/Nav";
+import PostCard from "./PostCard";
 import {Button} from "@chakra-ui/react";
 
 function PostsListInfinite() {
@@ -11,14 +11,12 @@ function PostsListInfinite() {
         hasNextPage,
         fetchNextPage,
     } = useInfiniteQuery({
-        initialPageParam: undefined,
+        initialPageParam: 1,
         queryKey: ['paginated-posts', "infinite"],
         getNextPageParam: prevData => {
             return prevData.next_page_url ? prevData.current_page + 1 : null
         },
         queryFn: ({pageParam = 1}) => {
-            console.log(pageParam)
-
             return fetch(`${API_ENDPOINT}/paginated-posts?page=${pageParam}`).then((res) => {
                 if (!res.ok) {
                     throw new Error('Failed to fetch')
@@ -39,12 +37,10 @@ function PostsListInfinite() {
                 return (
                     <div key={`posts-page-${index}`}>
                         {posts.data.map((post) => (
-                            <div key={post.id} className="post-wrapper">
-                                <h2>
-                                    <Link to={`/post/${post.id}`}>{post.title}</Link>
-                                </h2>
-                                <p>{post.excerpt}</p>
-                            </div>
+                            <PostCard
+                                key={post.id}
+                                post={post}
+                            />
                         ))}
                     </div>
                 )
